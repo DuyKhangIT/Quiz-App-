@@ -59,5 +59,5 @@ object Constants {
     )
 
     val difficulty = listOf("Easy", "Medium", "Hard")
-    val type = listOf("Multiple Choice", "True/False")
+    val type = listOf("Multiple Choice", "TrueORFalse")
 }

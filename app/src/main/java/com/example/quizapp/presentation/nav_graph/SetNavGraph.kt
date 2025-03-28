@@ -35,16 +35,16 @@ fun SetNavGraph() {
         composable(
             route = Routes.QuizScreen.route,
             arguments = listOf(
-                navArgument(name = AGR_KEY_QUIZ_NUMBER) {
+                navArgument(AGR_KEY_QUIZ_NUMBER) {
                     type = NavType.IntType
                 },
-                navArgument(name = AGR_KEY_QUIZ_CATEGORY) {
+                navArgument(AGR_KEY_QUIZ_CATEGORY) {
                     type = NavType.StringType
                 },
-                navArgument(name = AGR_KEY_QUIZ_DIFFICULTY) {
+                navArgument(AGR_KEY_QUIZ_DIFFICULTY) {
                     type = NavType.StringType
                 },
-                navArgument(name = AGR_KEY_QUIZ_TYPE) {
+                navArgument(AGR_KEY_QUIZ_TYPE) {
                     type = NavType.StringType
                 }
             )

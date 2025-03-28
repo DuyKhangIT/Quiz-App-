@@ -13,19 +13,19 @@ sealed class Routes(val route: String) {
 
             return "quiz_screen/{$AGR_KEY_QUIZ_NUMBER}/{$AGR_KEY_QUIZ_CATEGORY}/{$AGR_KEY_QUIZ_DIFFICULTY}/{$AGR_KEY_QUIZ_TYPE}"
                 .replace(
-                    oldValue = "${AGR_KEY_QUIZ_NUMBER}",
+                    oldValue = "{$AGR_KEY_QUIZ_NUMBER}",
                     newValue = numberOfQuizzes.toString()
                 )
                 .replace(
-                    oldValue = "${AGR_KEY_QUIZ_CATEGORY}",
+                    oldValue = "{$AGR_KEY_QUIZ_CATEGORY}",
                     newValue = category
                 )
                 .replace(
-                    oldValue = "${AGR_KEY_QUIZ_DIFFICULTY}",
+                    oldValue = "{$AGR_KEY_QUIZ_DIFFICULTY}",
                     newValue = difficulty
                 )
                 .replace(
-                    oldValue = "${AGR_KEY_QUIZ_TYPE}",
+                    oldValue = "{$AGR_KEY_QUIZ_TYPE}",
                     newValue = type
                 )
         }

@@ -52,7 +52,9 @@ fun QuizScreen(
 
         QuizAppBar(
             quizCategory,
-            onBackClick = {},
+            onBackClick = {
+                
+            },
         )
 
 

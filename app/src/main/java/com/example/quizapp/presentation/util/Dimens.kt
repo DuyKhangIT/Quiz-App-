@@ -36,4 +36,12 @@ object Dimens {
     val ExtraLargeCornerRadius = 50.dp
 
     val MediumBoxHeight = 60.dp
+
+    val SmallCircleShape = 90.dp
+
+    val SmallSpacerWidth = 8.dp
+
+    val LargeLottieAnimSize = 180.dp
+
+    val SmallBorderWidth = 2.dp
 }

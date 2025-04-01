@@ -89,6 +89,7 @@ fun HomeScreen(
         ButtonBox(
             text = "Generate Quiz",
             padding = MediumPadding,
+            fontSize = null,
             onButtonClick = {
                 navController.navigate(
                     route = Routes.QuizScreen.passQuizArguments(
@@ -98,7 +99,6 @@ fun HomeScreen(
                         state.type
                     )
                 )
-
             },
         )
     }

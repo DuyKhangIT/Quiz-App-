@@ -24,7 +24,7 @@ import com.example.quizapp.presentation.util.Dimens
 fun ButtonBox(
     text: String,
     padding: Dp,
-    fontSize: TextUnit,
+    fontSize: TextUnit?,
     onButtonClick: () -> Unit
 ) {
     Box(
@@ -44,7 +44,7 @@ fun ButtonBox(
             fontSize = Dimens.MediumTextSize,
             style = MaterialTheme.typography.labelMedium.copy(
                 fontWeight = FontWeight.SemiBold,
-                fontSize = fontSize,
+                fontSize = fontSize ?: Dimens.MediumTextSize,
             )
         )
     }

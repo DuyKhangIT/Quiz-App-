@@ -13,6 +13,7 @@ import com.example.quizapp.presentation.home.HomeScreen
 import com.example.quizapp.presentation.home.application.HomeScreenViewModel
 import com.example.quizapp.presentation.home.application.StateHomeScreen
 import com.example.quizapp.presentation.quiz.QuizScreen
+import com.example.quizapp.presentation.quiz.application.QuizViewModel
 
 @Composable
 fun SetNavGraph() {
@@ -55,10 +56,15 @@ fun SetNavGraph() {
             val difficulty = it.arguments?.getString(AGR_KEY_QUIZ_DIFFICULTY)
             val type = it.arguments?.getString(AGR_KEY_QUIZ_TYPE)
 
+            val quizViewModel : QuizViewModel = hiltViewModel()
+            val state by quizViewModel.quizList.collectAsState()
             QuizScreen(
                 numOfQuiz = numberOfQuizzes!!,
                 quizCategory = category!!,
                 quizDifficulty = difficulty!!,
+                quizType = type!!,
+                event =  quizViewModel::onEvent,
+                state = state,
             )
         }
     }

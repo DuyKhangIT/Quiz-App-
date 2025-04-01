@@ -14,19 +14,21 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object DataModel {
+object DataModule {
 
     @Provides
     @Singleton
     fun provideQuizAPI() : QuizAPI {
         return Retrofit.Builder()
-            .baseUrl("https://opentdb.com/api.php")
+            .baseUrl("https://opentdb.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(QuizAPI::class.java)
     }
 
 
+    @Provides
+    @Singleton
     fun provideQuizRepository(quizApi: QuizAPI) : QuizRepository {
         return QuizRepositoryImpl(quizApi)
 

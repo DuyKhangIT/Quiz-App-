@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.TextUnit
 import com.example.quizapp.R
 import com.example.quizapp.presentation.util.Dimens
 
@@ -23,6 +24,7 @@ import com.example.quizapp.presentation.util.Dimens
 fun ButtonBox(
     text: String,
     padding: Dp,
+    fontSize: TextUnit,
     onButtonClick: () -> Unit
 ) {
     Box(
@@ -40,7 +42,10 @@ fun ButtonBox(
         Text(
             text = text,
             fontSize = Dimens.MediumTextSize,
-            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold)
+            style = MaterialTheme.typography.labelMedium.copy(
+                fontWeight = FontWeight.SemiBold,
+                fontSize = fontSize,
+            )
         )
     }
 }

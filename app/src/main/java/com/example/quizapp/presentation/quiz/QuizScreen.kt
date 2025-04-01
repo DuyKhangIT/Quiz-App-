@@ -9,41 +9,67 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.quizapp.R
+import com.example.quizapp.presentation.home.components.ButtonBox
+import com.example.quizapp.presentation.quiz.application.StateQuizScreen
 import com.example.quizapp.presentation.quiz.components.QuizAppBar
+import com.example.quizapp.presentation.quiz.components.QuizInterface
+import com.example.quizapp.presentation.util.Constants
 import com.example.quizapp.presentation.util.Dimens.LargeSpacerHeight
 import com.example.quizapp.presentation.util.Dimens.MediumCornerRadius
+import com.example.quizapp.presentation.util.Dimens.MediumPadding
+import com.example.quizapp.presentation.util.Dimens.SmallPadding
 import com.example.quizapp.presentation.util.Dimens.SmallSpacerHeight
+import com.example.quizapp.presentation.util.Dimens.SmallTextSize
 import com.example.quizapp.presentation.util.Dimens.VerySmallPadding
 import com.example.quizapp.presentation.util.Dimens.VerySmallViewHeight
 
 
-@Preview
-@Composable
-fun PrevQuiz() {
-
-    QuizScreen(
-        numOfQuiz = 12,
-        quizCategory = "GK",
-        quizDifficulty = "Easy",
-    )
-}
-
+//@Preview
+//@Composable
+//fun PrevQuiz() {
+//
+//    QuizScreen(
+//        numOfQuiz = 12,
+//        quizCategory = "GK",
+//        quizDifficulty = "Easy",
+//    )
+//}
 
 @Composable
 fun QuizScreen(
     numOfQuiz: Int,
     quizCategory: String,
     quizDifficulty: String,
+    quizType: String,
+    event: (EventQuizScreen) -> Unit,
+    state: StateQuizScreen,
 ) {
+
+    LaunchedEffect(key1 = Unit) {
+        val difficulty = when (quizDifficulty) {
+            "Medium" -> "medium"
+            "Hard" -> "hard"
+            else -> "easy"
+        }
+        val type = when (quizType) {
+            "Multiple Choice" -> "multiple"
+            else -> "boolean"
+        }
+
+        event(EventQuizScreen.GetQuizzes(numOfQuiz, Constants.categoriesMap[quizCategory]!!, difficulty, type))
+    }
+
 
     Column(
         modifier = Modifier
@@ -90,6 +116,26 @@ fun QuizScreen(
                     colorResource(id = R.color.blue_grey)
                 ),
             )
+        }
+
+        Spacer(modifier = Modifier.height(LargeSpacerHeight))
+
+        QuizInterface(modifier = Modifier.weight(1f), onOptionSelected = {}, qNumber = 1)
+
+        Row (
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = MediumPadding)
+                .navigationBarsPadding()
+        ) {
+            ButtonBox(
+                text = "Previous",
+                padding = SmallPadding,
+//                fraction = 0.43f,
+                fontSize = SmallTextSize,
+                ) {
+
+            }
         }
     }
 }

@@ -16,16 +16,18 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.quizapp.R
+import com.example.quizapp.presentation.quiz.application.QuizState
 import com.example.quizapp.presentation.util.Dimens.LargeSpacerHeight
 import com.example.quizapp.presentation.util.Dimens.SmallSpacerHeight
 import com.example.quizapp.presentation.util.Dimens.SmallTextSize
 
 @Preview
 @Composable
-fun Prev(){
+fun Prev() {
     QuizInterface(
         onOptionSelected = {},
         qNumber = 1,
+        quizState = QuizState()
     )
 }
 
@@ -33,17 +35,20 @@ fun Prev(){
 fun QuizInterface(
     onOptionSelected: (Int) -> Unit,
     qNumber: Int,
+    quizState: QuizState,
     modifier: Modifier = Modifier,
 ) {
+
+    val question = quizState.quiz?.question!!.replace("&quot;", "\"").replace("&#039;", "\'")
 
     Box(
         modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
-        Column (
+        Column(
             modifier = Modifier.wrapContentHeight()
         ) {
-            Row  (
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
@@ -55,7 +60,7 @@ fun QuizInterface(
                 )
                 Text(
                     modifier = Modifier.weight(9f),
-                    text = "Which cartoon do you see ?",
+                    text = question,
                     color = colorResource(id = R.color.blue_grey),
                     fontSize = SmallTextSize,
                 )
@@ -63,36 +68,36 @@ fun QuizInterface(
 
             Spacer(modifier = Modifier.height(LargeSpacerHeight))
 
-            Column (
+            Column(
                 modifier = Modifier
                     .padding(horizontal = 15.dp)
             ) {
 
                 val options = listOf(
-                    "A" to "Doraemon",
-                    "B" to "Oggy",
-                    "C" to "Ben 10",
-                    "D" to "Tom and Jerry",
+                    "A" to quizState.shuffledOptions[0].replace("&quot;", "\"").replace("&#039;", "\'"),
+                    "B" to quizState.shuffledOptions[1].replace("&quot;", "\"").replace("&#039;", "\'"),
+                    "C" to quizState.shuffledOptions[2].replace("&quot;", "\"").replace("&#039;", "\'"),
+                    "D" to quizState.shuffledOptions[3].replace("&quot;", "\"").replace("&#039;", "\'"),
                 )
 
                 Column {
-                    options.forEachIndexed {
-                        index, (optionNumber, optionText) ->
+                    options.forEachIndexed { index, (optionNumber, optionText) ->
                         if (optionText.isNotEmpty()) {
                             QuizOption(
                                 optionNumber = optionNumber,
                                 options = optionText,
-                                selected = false,
-                                onOptionClick = {
-                                    onOptionSelected(index)
-                                },
-                                onUnselectOption = {onOptionSelected(-1)}
+                                onOptionClick = { onOptionSelected(index) },
+                                selected = quizState.selectedOptions == index,
+                                onUnselectOption = { onOptionSelected(-1) }
                             )
                         }
                         Spacer(modifier = Modifier.height(SmallSpacerHeight))
                     }
                 }
+
+                Spacer(modifier = Modifier.height(LargeSpacerHeight))
             }
+
 
         }
     }

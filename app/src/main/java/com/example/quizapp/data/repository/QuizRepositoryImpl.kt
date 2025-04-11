@@ -1,5 +1,6 @@
 package com.example.quizapp.data.repository
 
+import android.util.Log
 import com.example.quizapp.data.remote.QuizAPI
 import com.example.quizapp.domain.model.Quiz
 import com.example.quizapp.domain.repository.QuizRepository
@@ -15,6 +16,8 @@ class QuizRepositoryImpl(
         difficulty: String,
         type: String,
         ) : List<Quiz> {
-        return quizAPI.getQuizzes(amount, category, difficulty, type).results
+        val rsp = quizAPI.getQuizzes(amount, category, difficulty, type).results
+        Log.d("quiz", rsp.toString())
+        return rsp
     }
 }

@@ -1,6 +1,7 @@
 package com.example.quizapp.presentation.quiz.components
 
 import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.AnimationConstants.DefaultDurationMillis
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
@@ -69,7 +70,7 @@ fun QuizOption(
     val transition = updateTransition(selected, label = "selected")
 
     val startColor by transition.animateColor(
-        transitionSpec = { tween(durationMillis = 500, easing = LinearEasing) },
+        transitionSpec = { tween(durationMillis = DefaultDurationMillis, easing = LinearEasing) },
         label = "startColor"
     ) { selectedBox ->
         if (selectedBox) colorResource(id = R.color.orange)
@@ -82,7 +83,10 @@ fun QuizOption(
             .fillMaxWidth()
             .height(Dimens.MediumBoxHeight)
             .clip(RoundedCornerShape(Dimens.LargeCornerRadius))
-            .background(color = startColor, shape = RoundedCornerShape(16.dp))
+            .background(
+                color = startColor,
+                shape = RoundedCornerShape(16.dp)
+            )
     ) {
         Row(
             modifier = Modifier

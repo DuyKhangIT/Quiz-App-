@@ -14,6 +14,7 @@ import com.example.quizapp.presentation.home.application.HomeScreenViewModel
 import com.example.quizapp.presentation.home.application.StateHomeScreen
 import com.example.quizapp.presentation.quiz.QuizScreen
 import com.example.quizapp.presentation.quiz.application.QuizViewModel
+import com.example.quizapp.presentation.score.ScoreScreen
 
 @Composable
 fun SetNavGraph() {
@@ -24,7 +25,7 @@ fun SetNavGraph() {
 
 
         composable(route = Routes.HomeScreen.route) {
-            val viewModel : HomeScreenViewModel = hiltViewModel()
+            val viewModel: HomeScreenViewModel = hiltViewModel()
             val state: StateHomeScreen by viewModel.homeState.collectAsState()
             HomeScreen(
                 state = state,
@@ -56,15 +57,37 @@ fun SetNavGraph() {
             val difficulty = it.arguments?.getString(AGR_KEY_QUIZ_DIFFICULTY)
             val type = it.arguments?.getString(AGR_KEY_QUIZ_TYPE)
 
-            val quizViewModel : QuizViewModel = hiltViewModel()
+            val quizViewModel: QuizViewModel = hiltViewModel()
             val state by quizViewModel.quizList.collectAsState()
             QuizScreen(
                 numOfQuiz = numberOfQuizzes!!,
                 quizCategory = category!!,
                 quizDifficulty = difficulty!!,
                 quizType = type!!,
-                event =  quizViewModel::onEvent,
+                event = quizViewModel::onEvent,
                 state = state,
+                navController = navController,
+            )
+        }
+
+        composable(
+            route = Routes.ScoreScreen.route,
+            arguments = listOf(
+                navArgument(NOQ_KEY) {
+                    type = NavType.IntType
+                },
+                navArgument(CORRECT_ANS_KEY) {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            val numberOfQuestions = it.arguments?.getInt(NOQ_KEY)
+            val numberOfCorrectAns = it.arguments?.getInt(CORRECT_ANS_KEY)
+
+            ScoreScreen(
+                numOfQuestions = numberOfQuestions!!,
+                numOfCorrectAns = numberOfCorrectAns!!,
+                navController = navController,
             )
         }
     }
